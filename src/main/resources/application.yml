@@ -1,0 +1,57 @@
+server:
+  port: 8888
+
+spring:
+  main:
+    allow-circular-references: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: ytt19990813
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+    date-format: yyyy-MM-dd HH:mm:ss
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: NON_NULL
+
+mybatis-plus:
+  #启动时关闭banner
+  global-config:
+    banner: false
+  type-aliases-package: site.xiaoying.entity
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    #全局映射器启用缓存
+    cache-enabled: true
+    #允许JDBC支持自动生成主键
+    use-generated-keys: true
+    #设置默认的执行器
+    #simple 普通的执行器
+    #reuse 执行器会重用预处理语句prepared statements
+    #batch 执行器将重用语句并执行批量更新
+    default-executor-type: simple
+    #执行mybatis所用的日志为slf4j
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+logging:
+  level:
+    work.xiaoying.controller: debug
+    work.xiaoying.mapper: debug
+    org.springframework: warn
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n"
+  file:
+    name: ./logs/system.log
+  charset:
+    console: UTF-8
+    file: UTF-8
+  logback:
+    rollingpolicy:
+      max-history: 30
+      max-file-size: 10MB
+
